@@ -9,7 +9,7 @@ const mongoose = require("mongoose");
 const placesRoutes = require("./routes/places");
 const usersRoutes = require("./routes/users");
 
-const PORT = 5000;
+let PORT = process.env.PORT || 5000;
 
 // Инициируем сервер
 const app = express();
