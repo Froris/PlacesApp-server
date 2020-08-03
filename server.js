@@ -17,6 +17,10 @@ const app = express();
 // Парсим тело запроса
 app.use(bodyParser.json());
 
+// Статическое обслуживание клиента
+app.use("/uploads/images", express.static(path.join("uploads", "images")));
+app.use(express.static(path.join("public")));
+
 // Убираем ошибку CORS / Разрешаем отправлять/получать данные с другого источника
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -30,13 +34,16 @@ app.use((req, res, next) => {
 app.use("/api/places", placesRoutes);
 app.use("/api/users", usersRoutes);
 
-app.use("/uploads/images", express.static(path.join("uploads", "images")));
+// Standalone version
+app.use((req, res, next) => {
+  res.sendFile(path.resolve(__dirname, "public", "index.html"));
+});
 
 // Обработка ошибок для несуществующих маршрутов
-app.use((req, res, next) => {
-  const error = new HttpError("Could not find this route", 404);
-  throw error;
-});
+// app.use((req, res, next) => {
+//   const error = new HttpError("Could not find this route", 404);
+//   throw error;
+// });
 
 // Обработка ошибок - запросов
 // Callback функция с 4 аргументами говорит express`у, что мы отлавливаем ошибку в первом app.use
