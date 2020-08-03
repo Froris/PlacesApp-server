@@ -9,8 +9,6 @@ const mongoose = require("mongoose");
 const placesRoutes = require("./routes/places");
 const usersRoutes = require("./routes/users");
 
-let PORT = process.env.PORT || 5000;
-
 // Инициируем сервер
 const app = express();
 
@@ -70,6 +68,6 @@ mongoose
     console.log("Successfully connected to database!");
     console.log(`Running server on port: ${PORT}`);
     // Слушаем порт
-    app.listen(PORT);
+    app.listen(process.env.PORT || 5000);
   })
   .catch((err) => console.log(err));
