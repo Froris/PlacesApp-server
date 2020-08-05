@@ -16,17 +16,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // Статическое обслуживание клиента
-// app.use("/uploads/images", express.static(path.join("uploads", "images")));
-app.use(
-  "/uploads/images",
-  express.static(
-    path.join("uploads", "images", {
-      setHeaders: (res, path, stat) => {
-        res.set("Content-Type", "image/jpeg");
-      },
-    })
-  )
-);
+app.use("/uploads/images", express.static(path.join("uploads", "images")));
 app.use(express.static(path.join("public")));
 
 // Убираем ошибку CORS / Разрешаем отправлять/получать данные с другого источника
